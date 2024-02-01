@@ -1,0 +1,15 @@
+{{> main}}
+
+<section>
+    <h1>Productos en Tiempo Real</h1>
+    
+    <ul>
+        {{#each products}}
+            <li>
+                <strong>{{this.title}}</strong>
+                <p>{{this.description}}</p>
+                <p>Precio: ${{this.price}}</p>
+            </li>
+        {{/each}}
+    </ul>
+</section>

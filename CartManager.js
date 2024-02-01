@@ -31,13 +31,8 @@ class CartManager {
     }
   }
 
-  addCart() {
+  createCart(newCart) {
     try {
-      const newCart = {
-        id: uuidv4(),
-        products: [],
-      };
-
       this.carts.push(newCart);
       this.writeToFile();
       console.log(`Carrito creado con ID: ${newCart.id}`);
@@ -46,14 +41,9 @@ class CartManager {
     }
   }
 
-  getCartById(cartId) {
-    const cart = this.carts.find(c => c.id === cartId);
-
-    if (cart) {
-      return cart;
-    } else {
-      throw new Error("Carrito no encontrado.");
-    }
+  getCartProducts(cartId) {
+    const cart = this.getCartById(cartId);
+    return cart.products;
   }
 
   addProductToCart(cartId, productId, quantity) {
@@ -71,6 +61,16 @@ class CartManager {
       console.log(`Producto añadido al carrito con ID ${cartId}: ${productId}`);
     } catch (error) {
       console.error("Error al agregar producto al carrito:", error.message);
+    }
+  }
+
+  getCartById(cartId) {
+    const cart = this.carts.find(c => c.id === cartId);
+
+    if (cart) {
+      return cart;
+    } else {
+      throw new Error("Carrito no encontrado.");
     }
   }
 }

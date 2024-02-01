@@ -53,13 +53,15 @@ class ProductManager {
       this.products.push(newProduct);
       this.writeToFile();
       console.log(`Producto añadido: ${newProduct.title}`);
+      return newProduct; // Devolver el producto agregado
     } catch (error) {
       console.error("Error al agregar el producto:", error.message);
+      throw error; // Lanzar el error para que se maneje adecuadamente
     }
   }
 
-  getProducts() {
-    return this.products;
+  getProducts(limit) {
+    return limit ? this.products.slice(0, limit) : this.products;
   }
 
   getProductById(id) {

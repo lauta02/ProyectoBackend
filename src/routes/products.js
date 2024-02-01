@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ProductManager = require('../ProductManager');
+const ProductManager = require('../../ProductManager');
 
 const productManager = new ProductManager('productos.json');
 
@@ -21,16 +21,6 @@ router.get('/:pid', (req, res) => {
     res.json({ product });
   } catch (error) {
     res.status(404).json({ error: error.message });
-  }
-});
-
-router.post('/', (req, res) => {
-  const newProduct = req.body;
-  try {
-    productManager.addProduct(newProduct);
-    res.json({ message: 'Producto agregado correctamente' });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
   }
 });
 
