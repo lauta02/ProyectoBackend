@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const CartManager = require('../../CartManager');
+const CartManager = require('../managers/CartManager');
 
 const cartManager = new CartManager('carrito.json');
 
 router.post('/', (req, res) => {
   try {
-    const newCart = req.body;
-    cartManager.createCart(newCart);
+    cartManager.addCart(); // Llama al método addCart sin argumentos
     res.json({ message: 'Carrito creado correctamente' });
   } catch (error) {
     res.status(400).json({ error: error.message });

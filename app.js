@@ -4,7 +4,7 @@ const socketIO = require('socket.io');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const ProductManager = require('./ProductManager');
-const viewsRouter = require('./routes/views');
+const viewsRouter = require('./src/routes/views');
 
 const app = express();
 const server = http.createServer(app);
@@ -20,6 +20,7 @@ app.set('view engine', 'handlebars');
 app.use(express.static('public'));
 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/products', async (req, res) => {
   try {

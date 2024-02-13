@@ -5,17 +5,17 @@ class CartManager {
   constructor(filePath = 'carrito.json') {
     this.path = filePath;
     this.carts = [];
-    this.readFromFile();
+    this.readFromFile(); 
   }
 
   readFromFile() {
     try {
       const data = fs.readFileSync(this.path, 'utf-8');
-      this.carts = JSON.parse(data);
+      this.carts = JSON.parse(data); 
     } catch (error) {
       if (error.code === 'ENOENT') {
-        this.carts = [];
-        this.writeToFile();
+        this.carts = []; 
+        this.writeToFile(); 
       } else {
         console.error("Error al leer el archivo de carritos:", error.message);
       }
@@ -31,32 +31,28 @@ class CartManager {
     }
   }
 
-  createCart(newCart) {
+  addCart() {
     try {
-      this.carts.push(newCart);
-      this.writeToFile();
+      const newCart = { id: uuidv4(), products: [] }; 
+      this.carts.push(newCart); 
+      this.writeToFile(); 
       console.log(`Carrito creado con ID: ${newCart.id}`);
     } catch (error) {
       console.error("Error al crear el carrito:", error.message);
     }
   }
 
-  getCartProducts(cartId) {
-    const cart = this.getCartById(cartId);
-    return cart.products;
-  }
-
-  addProductToCart(cartId, productId, quantity) {
+  addProductToCart(cartId, productId) { 
     try {
       const cart = this.getCartById(cartId);
-      const existingProduct = cart.products.find(p => p.product === productId);
-
-      if (existingProduct) {
-        existingProduct.quantity += quantity;
+      const existingProductIndex = cart.products.findIndex(p => p.product === productId);
+  
+      if (existingProductIndex !== -1) {
+        cart.products[existingProductIndex].quantity++;
       } else {
-        cart.products.push({ product: productId, quantity });
+        cart.products.push({ product: productId, quantity: 1 }); 
       }
-
+  
       this.writeToFile();
       console.log(`Producto añadido al carrito con ID ${cartId}: ${productId}`);
     } catch (error) {
