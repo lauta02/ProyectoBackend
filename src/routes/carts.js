@@ -6,7 +6,7 @@ const cartManager = new CartManager('carrito.json');
 
 router.post('/', (req, res) => {
   try {
-    cartManager.addCart(); // Llama al método addCart sin argumentos
+    cartManager.addCart(); 
     res.json({ message: 'Carrito creado correctamente' });
   } catch (error) {
     res.status(400).json({ error: error.message });
